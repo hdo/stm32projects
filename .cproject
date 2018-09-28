@@ -163,6 +163,46 @@
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>
 			</target>
+			<target name="clean" path="GRBLJogTest" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>${cross_make}</buildCommand>
+				<buildArguments/>
+				<buildTarget>clean</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="all" path="GRBLJogTest" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>${cross_make}</buildCommand>
+				<buildArguments/>
+				<buildTarget>all</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="flash" path="GRBLJogTest" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>${cross_make}</buildCommand>
+				<buildArguments/>
+				<buildTarget>flash</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="all" path="HoverBoardControl" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>${cross_make}</buildCommand>
+				<buildArguments/>
+				<buildTarget>all</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="clean" path="HoverBoardControl" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>${cross_make}</buildCommand>
+				<buildArguments/>
+				<buildTarget>clean</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
 		</buildTargets>
 	</storageModule>
 </cproject>
