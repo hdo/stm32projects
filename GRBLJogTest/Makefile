@@ -65,7 +65,8 @@ Src/usart.c \
 ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c \
 ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c \
 Src/main.c \
-../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c  
+../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c \
+Src/tim.c
 
 # ASM sources
 ASM_SOURCES =  \

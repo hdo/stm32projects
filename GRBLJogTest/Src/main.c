@@ -39,6 +39,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f1xx_hal.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -208,12 +209,17 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
   printf("Starting ...\r\n");
 
+  TIM3->CNT = 10000;
+  HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_1 | TIM_CHANNEL_2 );
   /* USER CODE END 2 */
 
+  uint16_t counter_last_value = TIM3->CNT;
+  int16_t counter_distance = 0;
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   keypad_reset_output();
