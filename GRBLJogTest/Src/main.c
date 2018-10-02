@@ -61,6 +61,8 @@ uint8_t keypad_button_pressed[BUTTON_COUNT];
 volatile uint32_t ticks=0;
 uint32_t last_ticks = 0;
 
+uint32_t ticks_last_rotary_check = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -212,13 +214,13 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
-  printf("Starting ...\r\n");
+  //printf("Starting ...\r\n");
 
   TIM3->CNT = 10000;
   HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_1 | TIM_CHANNEL_2 );
   /* USER CODE END 2 */
 
-  uint16_t counter_last_value = TIM3->CNT;
+  uint16_t counter_last_value = TIM3->CNT >> 1;
   int16_t counter_distance = 0;
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -241,19 +243,64 @@ int main(void)
 		  send_stop_jog();
 	  }
 
+	  /*
+	  if (math_calc_diff(ticks, ticks_last_rotary_check) > 300) {
+		  ticks_last_rotary_check = ticks;
+		  uint16_t counter_current_value = (TIM3->CNT) >> 1;
+		  int16_t counter_distance = (counter_current_value - counter_last_value);
+		  //printf("%d\r\n", counter_distance);
+		  counter_last_value = counter_current_value;
+		  if (counter_distance != 0) {
+			  //is_jog = 1;
+			  //last_jog = last_ticks;
+			  //printf("counter:%d \r\n", (int) counter_distance);
+			  int step = counter_distance * 1;
+			  int test = step;
+			  if (test < 0) {
+				  test *= -1;
+			  }
+
+			  int stepZ = test / 10;
+			  int stepE = test % 10;
+
+			  if (step > 0) {
+				  printf("$J=G91X%d.%dF250\r\n", stepZ, stepE);
+			  }
+			  else {
+				  printf("$J=G91X-%d.%dF250\r\n", stepZ, stepE);
+			  }
+
+		  }
+	  }
+	  */
+
+
 	  // each x ms
 	  if ((ticks - last_ticks) > 100) {
 		  last_ticks = ticks;
 		  // blink LED
 		  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
 
+		  uint16_t counter_current_value = (TIM3->CNT) >> 1;
+		  int16_t counter_distance = (counter_current_value - counter_last_value);
+		  //printf("%d\r\n", counter_distance);
+		  counter_last_value = counter_current_value;
+
+		  if (counter_distance != 0) {
+			  is_jog = 1;
+			  last_jog = last_ticks;
+			  if (counter_distance > 0) {
+				  printf("$J=G91X10F3000\r\n");
+			  }
+			  else {
+				  printf("$J=G91X-10F3000\r\n");
+			  }
+		  }
 
 
 		  keypad_read_buttons();
 		  //print_buttons();
 		  if (keypad_button_pressed[3]) {
-			  is_jog = 1;
-			  last_jog = last_ticks;
 			  printf("$X\r\n");
 		  }
 		  // 2
@@ -272,13 +319,13 @@ int main(void)
 		  if (keypad_button_pressed[4]) {
 			  is_jog = 1;
 			  last_jog = last_ticks;
-			  printf("$J=G91X-10F2000\r\n");
+			  printf("$J=G91X-10F3000\r\n");
 		  }
 		  // 6
 		  if (keypad_button_pressed[6]) {
 			  is_jog = 1;
 			  last_jog = last_ticks;
-			  printf("$J=G91X10F2000\r\n");
+			  printf("$J=G91X20F3000\r\n");
 		  }
 		  // 3
 		  if (keypad_button_pressed[2]) {
