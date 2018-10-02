@@ -142,6 +142,8 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
+  // Connect rotary encoder to A6 and A7
+
   printf("Starting ...\r\n");
 
   TIM3->CNT = 10000;
@@ -160,10 +162,12 @@ int main(void)
 		  last_ticks = ticks;
 		  // blink LED
 		  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-		  uint16_t counter_current_value = TIM3->CNT;
-		  counter_distance = (counter_current_value - counter_last_value) /2 ;
-		  counter_last_value = counter_current_value;
-		  printf("counter:%d \r\n", (int) counter_distance);
+		  //uint16_t counter_current_value = TIM3->CNT;
+		  uint16_t counter_current_value = (TIM3->CNT) >> 1;
+		  //counter_distance = (counter_current_value - counter_last_value) /2 ;
+		  //counter_last_value = counter_current_value;
+		  //printf("counter:%d \r\n", (int) counter_distance);
+		  printf("counter:%d \r\n", counter_current_value);
 
 	  }
 
