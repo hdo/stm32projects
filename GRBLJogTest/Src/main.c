@@ -290,10 +290,10 @@ int main(void)
 			  is_jog = 1;
 			  last_jog = last_ticks;
 			  if (counter_distance > 0) {
-				  printf("$J=G91X10F3000\r\n");
+				  printf("$J=G91X0.1F500\r\n");
 			  }
 			  else {
-				  printf("$J=G91X-10F3000\r\n");
+				  printf("$J=G91X-0.1F500\r\n");
 			  }
 		  }
 
